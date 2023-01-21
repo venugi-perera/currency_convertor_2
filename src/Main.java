@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
 
-public class Main  {
+public class Main {
 
     private static JLabel amountLabel;
     private static JTextField amountText;
@@ -18,7 +16,7 @@ public class Main  {
 
         JPanel panel = new JPanel();
         JFrame frame = new JFrame();
-        frame.setSize(350, 200);
+        frame.setSize(350, 250);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
 
@@ -37,40 +35,59 @@ public class Main  {
         panel.add(toLabel);
 
 
-        String Tocurrency[] ={"USD"};
+        String Tocurrency[] = {"USD"};
         usdCurrency = new JComboBox(Tocurrency);
         usdCurrency.setBounds(100, 50, 165, 25);
         panel.add(usdCurrency);
 
         fromLabel = new JLabel("From");
-        fromLabel.setBounds(10, 150, 80, 25);
+        fromLabel.setBounds(10, 90, 80, 25);
         panel.add(fromLabel);
 
-        String Fromcurrency[] ={"Srilankan Rupees","Indian Rupees"};
+        String Fromcurrency[] = {"Srilankan Rupees", "Indian Rupees"};
         fromrupees = new JComboBox(Fromcurrency);
-        fromrupees.setBounds(100, 150, 165, 25);
+        fromrupees.setBounds(100, 90, 165, 25);
         panel.add(fromrupees);
 
         button = new JButton("convert");
-        button.setBounds(10, 80, 80, 25);
+        button.setBounds(10, 150, 80, 25);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if ((amountText.getText().isEmpty())) {
+                    JOptionPane.showMessageDialog(panel, "please enter the amount");
+                } else {
+                    double tot;
+                    double amount = Double.parseDouble(amountText.getText());
+
+
+                    String rupees = (String) fromrupees.getSelectedItem();
+                    String usd = (String) usdCurrency.getSelectedItem();
+                    if ((usd == "USD") && (rupees == "Indian Rupees")) {
+                        tot = amount * 70.50;
+                        JOptionPane.showMessageDialog(panel, "Your Amount will be " + tot);
+                    } else if (((usd == "USD") && (rupees == "Srilankan Rupees"))) {
+                        tot = amount * 170.50;
+                        JOptionPane.showMessageDialog(panel, "Your Amount will be " + tot);
+                    } else if ((amountText.getText().isEmpty())) {
+                        JOptionPane.showMessageDialog(panel, "please enter the amount");
+                    }
+
+                }
             }
-            double tot;
-            double amount = Double.parseDouble(amountText.getText());
+        });
+//
 
 
-//                String rupees = (String) fromrupees.getSelectedItem();
-//                String usd = (String) usdCurrency.getSelectedItem();
-//                if ((usd =="USD" )&& (rupees =="Indian Rupees")) {
-//                    tot = amount * 70.50;
-//                    JOptionPane.showMessageDialog(panel, "Your Amount will be " + tot);
-//                }
+        panel.add(button);
+        frame.setVisible(true);
+    }
 
-                if(fromrupees.getSelectedItem() =="USD";
-            {
-                tot = amount * 70.50;
-            }
+}
+
+//                if(usdCurrency.getSelectedItem() =="USD" && fromrupees.getselectedItem()== "Srilankan Rupees");
+//            {
+//                tot = amount * 70.50;
+//            }
 
 //            String fromRupeesVal = String.valueOf(fromrupees.getSelectedItem());
 //            String usdCurrencyVal = String.valueOf(usdCurrency.getSelectedItem());
@@ -82,10 +99,3 @@ public class Main  {
 //                    tot = amount * 70.50;
 //                    JOptionPane.showMessageDialog(panel, "Your Amount will be " + tot);
 //                }
-        });
-
-        panel.add(button);
-
-        frame.setVisible(true);
-    }
-}
